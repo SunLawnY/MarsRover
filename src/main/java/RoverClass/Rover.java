@@ -12,15 +12,15 @@ public class Rover {
     }
 
     public int getPositionX() {
-        return roverPosition.getPositionX();
+        return this.roverPosition.getPositionX();
     }
 
     public int getPositionY() {
-        return roverPosition.getPositionY();
+        return this.roverPosition.getPositionY();
     }
 
     public RoverFacing getFacing() {
-        return roverPosition.getFacing();
+        return this.roverPosition.getFacing();
     }
 
 }
