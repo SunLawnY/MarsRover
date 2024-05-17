@@ -7,14 +7,16 @@ public class Plateau {
     Rover rover;
 
     public Plateau(PlateauMap plateauMap, Rover rover) throws InterruptedException {
-        System.out.println("Approaching designated landing zone, commencing descent.");
-//        for (int i = 5; i > 0; i--) {
-//            System.out.println(i);
-//            Thread.sleep(1000);
-//        }
+        System.out.println("Approaching designated landing zone, commencing descent in");
+        Thread.sleep(1000);
+        for (int i = 5; i > 0; i--) {
+            System.out.println(i);
+            Thread.sleep(1000);
+        }
         this.plateauMap = plateauMap;
         this.rover = rover;
         System.out.println("Touchdown achieved!");
+        Thread.sleep(2000);
     }
 
     @Override

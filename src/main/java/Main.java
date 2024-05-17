@@ -6,6 +6,8 @@ import RoverClass.RoverPosition;
 import java.util.Scanner;
 
 public class Main {
+
+
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         PlateauMap map = null;
@@ -18,6 +20,7 @@ public class Main {
         while (map == null || position == null) {
             while (map == null) {
                 System.out.println("Enter map X/Y Coordinate (Format: X Y))");
+                //String line instruction will be sent to Parser
                 String mapInput = scanner.nextLine();
                 try {
                     map = new InputParser().setMap(mapInput);
@@ -27,7 +30,7 @@ public class Main {
                 }
             }
             while (position == null) {
-                System.out.println("Please provide the X/Y Coordinate (Format: X Y Facing[N/E/S/W])");
+                System.out.println("Enter landing X/Y Coordinate (Format: X Y Facing[N/E/S/W])");
                 String landingInput = scanner.nextLine();
                 try {
                     position = new InputParser().setLanding(landingInput);
