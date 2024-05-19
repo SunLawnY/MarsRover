@@ -1,6 +1,7 @@
 package Rover;
 
 import InputAndParser.Parser;
+import Plateau.Mars;
 
 public class Performer {
     MoveFunction moveFunction;
@@ -32,9 +33,41 @@ public class Performer {
         }
     }
 
-    public static void peformMove(MoveFunction moveFunction, Rover rover){
-        if (rover.position.getFacing() == Parser.CompassDirection.N){
-            rover.position.setY(rover.position.getY()+1);
+    public static void peformMoveForward(MoveFunction moveFunction, Rover rover, Mars mars){
+        int marsX = mars.getxAxis();
+        int marsY = mars.getyAxis();
+        int roverX = rover.position.getX();
+        int roverY = rover.position.getY();
+        Parser.CompassDirection face = rover.getPosition().getFacing();
+        switch (face) {
+            case Parser.CompassDirection.N -> {
+                if (roverY != marsY){
+                    rover.position.setY(roverY+1);
+                } else {
+                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further north.");
+                }
+            }
+            case Parser.CompassDirection.S -> {
+                if (roverY != 0){
+                    rover.position.setY(roverY-1);
+                } else {
+                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further south.");
+                }
+            }
+            case Parser.CompassDirection.E -> {
+                if (roverX != marsX){
+                    rover.position.setX(roverX+1);
+                } else {
+                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further east.");
+                }
+            }
+            case Parser.CompassDirection.W -> {
+                if (roverX != 0){
+                    rover.position.setX(roverX-1);
+                } else {
+                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further west.");
+                }
+            }
         }
     }
 }

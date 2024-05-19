@@ -1,64 +1,79 @@
 package InputAndParser;
-import Rover.Rover;
+
+import Rover.*;
 import Plateau.Mars;
+
+import java.util.ArrayList;
 
 public class Parser {
 
     public enum CompassDirection {
-        E,S,W,N;
+        E, S, W, N;
     }
 
-    public static Mars mapParser (String input){
+    public static Mars mapParser(String input) {
         String[] parts = input.split(" ");
-        System.out.println("*****Step1.1 test length must be 2*****");
         if (parts.length != 2) {
-            throw new IllegalArgumentException("Require X and Y coordinate");
+            throw new IllegalArgumentException("Error: XY coordinates are required to generate a map. Please provide the necessary inputs.");
         }
         try {
             int x = Integer.parseInt(parts[0]);
             int y = Integer.parseInt(parts[1]);
-            System.out.println("*****Step1.2 test must be number input*****");
 
             if (x <= 0 || y <= 0) {
-                System.out.println("*****Step1.3 test negative input*****");
-                throw new IllegalArgumentException("X/Y must be at least 1");
+                throw new IllegalArgumentException("Error: The provided XY coordinates are invalid. Please ensure they fall within the permissible range.");
             }
             System.out.println("Map created, the size is " + x + "x" + y);
             return new Mars(x, y);
         } catch (NumberFormatException e) {
-            System.out.println("X/Y must be an integer!");
+            System.out.println("Error: Coordinates must be numeric values. Please re-enter the XY coordinates.");
             return null;
         }
     }
 
-    public static Rover roverParser (String input, Mars mars){
+    public static Rover roverParser(String input, Mars mars) {
         String[] parts = input.split(" ");
-        System.out.println("*****Step2.1 test Length must be 3*****");
         if (parts.length != 3) {
-            throw new IllegalArgumentException("Require X, Y coordinate and a Facing Direction");
+            throw new IllegalArgumentException("Error: Invalid input format. Please provide exactly three components: X coordinate, Y coordinate, and facing direction.");
         }
-        System.out.println("*****Step2.2*****");
-        int x = Integer.parseInt(parts[0]);
-        int y = Integer.parseInt(parts[1]);
+        int x;
+        int y;
+        try {
+            x = Integer.parseInt(parts[0]);
+            y = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Error: Coordinates must be numeric values. Please re-enter the XY coordinates.");
+        }
+
         int a = mars.getxAxis();
         int b = mars.getyAxis();
         if (x < 0 || y < 0 || x > a || y > b) {
-            System.out.println("*****Step2.3*****");
-            throw new IllegalArgumentException("X/Y must be at least 0 and must be within map range");
+            throw new IllegalArgumentException("Error: Coordinates out of bounds. X and Y must be at least 0 and within the map range.");
         }
-        System.out.println("*****Step2.4*****");
+
         String partInput = parts[2];
         CompassDirection facing;
         try {
-            System.out.println("*****Step2.5*****");
             facing = CompassDirection.valueOf(partInput.toUpperCase());
-            System.out.println("*****Step2.6*****");
-            System.out.println("Coordinates acquired, situated at " + x + " " + y + " " + facing);
+            System.out.println("Coordinates acquired, situated at " + x + " " + y + " facing " + facing);
             return new Rover(x, y, facing);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid input. Please enter a valid facing direction E/S/W/N.");
+            throw new IllegalArgumentException("Error: Invalid facing direction. Please enter a valid direction: E, S, W, or N.");
         }
     }
 
-//    public static
+    public static ArrayList<MoveFunction> command(String input) {
+        ArrayList<MoveFunction> result = new ArrayList<>();
+        char[] parserList = input.toCharArray();
+        MoveFunction function;
+        for (char c : parserList) {
+            try {
+                function = MoveFunction.valueOf(String.valueOf(c).toUpperCase());
+                result.add(function);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Error: Invalid command '" + c + "'. Instructions should only contain L, R, M, or Q.");
+            }
+        }
+        return result;
+    }
 }

@@ -3,5 +3,6 @@ package Rover;
 public enum MoveFunction {
     L,
     R,
-    M
+    M,
+    Q
 }
