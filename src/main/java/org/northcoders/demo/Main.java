@@ -11,7 +11,6 @@ public class Main {
         AdminRemote manger = new AdminRemote(scanner);
         manger.createRover(scanner);
         manger.performMovement(scanner);
-        manger.getRoverPosition();
         System.out.println("Mission accomplished, entering standby mode.");
         scanner.close();
     }

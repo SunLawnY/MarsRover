@@ -10,7 +10,7 @@ class AdminRemoteTest {
 
     @Test
     void createRover() {
-        AdminRemote test = new AdminRemote()
+//        AdminRemote test = new AdminRemote()
 
     }
 

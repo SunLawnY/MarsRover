@@ -51,21 +51,21 @@ public class Performer {
                 if (roverY != 0){
                     rover.position.setY(roverY-1);
                 } else {
-                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further south.");
+                    throw new IndexOutOfBoundsException("Error: Rover is at the southern edge of the map and cannot move further south.");
                 }
             }
             case Parser.CompassDirection.E -> {
                 if (roverX != marsX){
                     rover.position.setX(roverX+1);
                 } else {
-                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further east.");
+                    throw new IndexOutOfBoundsException("Error: Rover is at the eastern edge of the map and cannot move further east.");
                 }
             }
             case Parser.CompassDirection.W -> {
                 if (roverX != 0){
                     rover.position.setX(roverX-1);
                 } else {
-                    throw new IndexOutOfBoundsException("Error: Rover is at the northern edge of the map and cannot move further west.");
+                    throw new IndexOutOfBoundsException("Error: Rover is at the western edge of the map and cannot move further west.");
                 }
             }
         }
