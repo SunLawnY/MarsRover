@@ -34,8 +34,8 @@ public class Performer {
     }
 
     public static void peformMoveForward(MoveFunction moveFunction, Rover rover, Mars mars){
-        int marsX = mars.getxAxis();
-        int marsY = mars.getyAxis();
+        int marsX = mars.getXAxis();
+        int marsY = mars.getYAxis();
         int roverX = rover.position.getX();
         int roverY = rover.position.getY();
         Parser.CompassDirection face = rover.getPosition().getFacing();

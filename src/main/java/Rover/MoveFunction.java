@@ -4,5 +4,4 @@ public enum MoveFunction {
     L,
     R,
     M,
-    Q
 }

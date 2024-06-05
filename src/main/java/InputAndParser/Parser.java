@@ -45,8 +45,8 @@ public class Parser {
             throw new IllegalArgumentException("Error: Coordinates must be numeric values. Please re-enter the XY coordinates.");
         }
 
-        int a = mars.getxAxis();
-        int b = mars.getyAxis();
+        int a = mars.getXAxis();
+        int b = mars.getYAxis();
         if (x < 0 || y < 0 || x > a || y > b) {
             throw new IllegalArgumentException("Error: Coordinates out of bounds. X and Y must be at least 0 and within the map range.");
         }
@@ -64,6 +64,9 @@ public class Parser {
 
     public static ArrayList<MoveFunction> command(String input) {
         ArrayList<MoveFunction> result = new ArrayList<>();
+        if (input.isEmpty()){
+            System.out.println("In");
+        }
         char[] parserList = input.toCharArray();
         MoveFunction function;
         for (char c : parserList) {
@@ -71,7 +74,7 @@ public class Parser {
                 function = MoveFunction.valueOf(String.valueOf(c).toUpperCase());
                 result.add(function);
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Error: Invalid command '" + c + "'. Instructions should only contain L, R, M, or Q.");
+                throw new IllegalArgumentException("Error: Invalid command '" + c + "'. Instructions should only contain L, R or M");
             }
         }
         return result;
