@@ -11,11 +11,15 @@ public class Mars {
         this.yAxis = yAxis;
     }
 
-    public static synchronized Mars getInstance(int xAxis, int yAxis) {
+    public static Mars getInstance() {
         if (instance == null) {
-            instance = new Mars(xAxis, yAxis);
+            instance = new Mars(0, 0);
         }
-        return instance;
+        return Mars.instance;
+    }
+
+    public static void setInstance(int x, int y) {
+        instance = new Mars(x, y);
     }
 
     public int getXAxis() {
@@ -25,4 +29,5 @@ public class Mars {
     public int getYAxis() {
         return yAxis;
     }
+
 }

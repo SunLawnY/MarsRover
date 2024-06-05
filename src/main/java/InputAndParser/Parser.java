@@ -11,7 +11,7 @@ public class Parser {
         E, S, W, N;
     }
 
-    public static Mars mapParser(String input) {
+    public static void mapParser(String input) {
         String[] parts = input.split(" ");
         if (parts.length != 2) {
             throw new IllegalArgumentException("Error: XY coordinates are required to generate a map. Please provide the necessary inputs.");
@@ -24,14 +24,13 @@ public class Parser {
                 throw new IllegalArgumentException("Error: The provided XY coordinates are invalid. Please ensure they fall within the permissible range.");
             }
             System.out.println("Map created, the size is " + x + "x" + y);
-            return new Mars(x, y);
+            Mars.setInstance(x, y);
         } catch (NumberFormatException e) {
             System.out.println("Error: Coordinates must be numeric values. Please re-enter the XY coordinates.");
-            return null;
         }
     }
 
-    public static Rover roverParser(String input, Mars mars) {
+    public static Rover roverParser(int n, String input, Mars mars) {
         String[] parts = input.split(" ");
         if (parts.length != 3) {
             throw new IllegalArgumentException("Error: Invalid input format. Please provide exactly three components: X coordinate, Y coordinate, and facing direction.");
@@ -56,7 +55,7 @@ public class Parser {
         try {
             facing = CompassDirection.valueOf(partInput.toUpperCase());
             System.out.println("Coordinates acquired, situated at " + x + " " + y + " facing " + facing);
-            return new Rover(x, y, facing);
+            return new Rover(n+1, x, y, facing);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error: Invalid facing direction. Please enter a valid direction: E, S, W, or N.");
         }

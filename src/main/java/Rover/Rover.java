@@ -1,15 +1,17 @@
 package Rover;
-import InputAndParser.Parser;
-import Plateau.Mars;
+
+import InputAndParser.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rover implements Runnable{
+public class Rover implements Runnable {
+    int id;
     Position position;
     List<MoveFunction> instruction;
 
-    public Rover(int x, int y, Parser.CompassDirection facing) {
+    public Rover(int id, int x, int y, Parser.CompassDirection facing) {
+        this.id = id;
         this.position = new Position(x, y, facing);
         instruction = new ArrayList<>();
     }
@@ -32,20 +34,38 @@ public class Rover implements Runnable{
         this.instruction = instruction;
     }
 
-    public void performMovement(){
+    public void performMovement() {
         for (MoveFunction f : this.instruction) {
+            if (checkCollision(AdminRemote.rovers)) {
+                System.out.println("Circuit's dead, there's something wrong\n" +
+                        "Can you hear me, Rover "+ this.id + "\n" +
+                        "Can you hear me, Rover "+ this.id + "\n" +
+                        "Can you hear me, Rover "+ this.id + "\n");
+                break;
+            }
             if (f == MoveFunction.M) {
-                Performer.peformMoveForward(f, this, Mars.getInstance(0, 0));
+                Performer.performMoveForward(f, this);
             } else if (f == MoveFunction.L || f == MoveFunction.R) {
                 Performer.performChangeDirection(f, this);
             }
-            System.out.println(this.getPosition());
-            try{
+
+            System.out.println("Rover " + this.id + " " + this.getPosition());
+            try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private boolean checkCollision(List<Rover> rovers) {
+        for (Rover other : rovers) {
+            if (other != this && other.position.getX() == this.position.getX() && other.position.getY() == this.position.getY()) {
+                System.out.println("Collision detected between rover " + this.id + " and rover " + other.id);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

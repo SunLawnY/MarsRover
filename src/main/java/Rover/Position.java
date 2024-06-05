@@ -39,6 +39,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Updated position X:" + getX() + " Y:" + getY() + " Facing:" + getFacing() + ".";
+        return "position X:" + getX() + " Y:" + getY() + " Facing:" + getFacing() + ".";
     }
 }

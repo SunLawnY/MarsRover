@@ -11,15 +11,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class AdminRemote{
-    private final List<Rover> rovers;
-    private Mars mars;
+    public static List<Rover> rovers = new ArrayList<>();
 
     public AdminRemote(Scanner scanner) {
-        rovers = new ArrayList<>();
-        while (mars == null) {
+        while (Mars.getInstance().getXAxis() == 0 && Mars.getInstance().getYAxis() == 0) {
             try {
                 System.out.println("Generate a Map Using Inputted XY Coordinates");
-                this.mars = Parser.mapParser(scanner.nextLine());
+                Parser.mapParser(scanner.nextLine());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -35,7 +33,7 @@ public class AdminRemote{
             while (!createComplete) {
                 try {
                     System.out.println("Initialize Rover " + (n + 1) + " Using Inputted XY Coordinates");
-                    rovers.add(Parser.roverParser(scanner.nextLine(), mars));
+                    rovers.add(Parser.roverParser(n, scanner.nextLine(), Mars.getInstance()));
                     createComplete = true;
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
@@ -66,11 +64,12 @@ public class AdminRemote{
         }
     }
 
+
 //    public void performMovement() {
 //
 //        for (MoveFunction f : rovers.get(roverNumber).getInstruction()) {
 //            if (f == MoveFunction.M) {
-//                Performer.peformMoveForward(f, rovers.get(roverNumber), mars);
+//                Performer.performMoveForward(f, rovers.get(roverNumber), mars);
 //            } else if (f == MoveFunction.L || f == MoveFunction.R) {
 //                Performer.performChangeDirection(f, rovers.get(roverNumber));
 //            }
@@ -79,15 +78,6 @@ public class AdminRemote{
 //
 //    }
 
-
-
-    public List<Rover> getRovers() {
-        return rovers;
-    }
-
-    public Mars getMars() {
-        return mars;
-    }
 }
 
 

@@ -16,7 +16,6 @@ public class Main {
         manager.createRover(scanner);
         manager.storeTheInstruction(scanner);
         manager.startAllRovers();
-        System.out.println("Mission accomplished, entering standby mode.");
         scanner.close();
     }
 }
