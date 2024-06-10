@@ -2,8 +2,13 @@ package InputAndParser;
 
 import Plateau.Mars;
 import Rover.Rover;
+import Rover.MoveFunction;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
+import java.util.ArrayList;
+
+import static InputAndParser.Parser.command;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
@@ -65,6 +70,72 @@ class ParserTest {
     }
 
     @Test
-    void command() {
+    void testCommand_ValidInput() {
+        // Arrange
+        String input = "LRM";
+
+        // Act
+        ArrayList<MoveFunction> result = command(input);
+
+        // Assert
+        assertEquals(3, result.size());
+        assertEquals(MoveFunction.L, result.get(0));
+        assertEquals(MoveFunction.R, result.get(1));
+        assertEquals(MoveFunction.M, result.get(2));
+    }
+
+    @Test
+    void testCommand_InvalidInput() {
+        // Arrange
+        String input = "LRX";
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                command(input);
+            }
+        });
+        assertEquals("Error: Invalid command 'X'. Instructions should only contain L, R or M", exception.getMessage());
+    }
+
+    @Test
+    void testCommand_EmptyInput() {
+        // Arrange
+        String input = "";
+
+        // Act
+        ArrayList<MoveFunction> result = command(input);
+
+        // Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testCommand_MixedCaseInput() {
+        // Arrange
+        String input = "lRm";
+
+        // Act
+        ArrayList<MoveFunction> result = command(input);
+
+        // Assert
+        assertEquals(3, result.size());
+        assertEquals(MoveFunction.L, result.get(0));
+        assertEquals(MoveFunction.R, result.get(1));
+        assertEquals(MoveFunction.M, result.get(2));
+    }
+
+    @Test
+    void testCommand_SingleValidCommand() {
+        // Arrange
+        String input = "M";
+
+        // Act
+        ArrayList<MoveFunction> result = command(input);
+
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals(MoveFunction.M, result.get(0));
     }
 }

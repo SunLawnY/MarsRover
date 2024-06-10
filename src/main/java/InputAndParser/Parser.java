@@ -64,7 +64,7 @@ public class Parser {
     public static ArrayList<MoveFunction> command(String input) {
         ArrayList<MoveFunction> result = new ArrayList<>();
         if (input.isEmpty()){
-            System.out.println("In");
+            System.out.println("Please assign command");
         }
         char[] parserList = input.toCharArray();
         MoveFunction function;

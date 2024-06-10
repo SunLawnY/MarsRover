@@ -63,21 +63,6 @@ public class AdminRemote{
             thread.start();
         }
     }
-
-
-//    public void performMovement() {
-//
-//        for (MoveFunction f : rovers.get(roverNumber).getInstruction()) {
-//            if (f == MoveFunction.M) {
-//                Performer.performMoveForward(f, rovers.get(roverNumber), mars);
-//            } else if (f == MoveFunction.L || f == MoveFunction.R) {
-//                Performer.performChangeDirection(f, rovers.get(roverNumber));
-//            }
-//            System.out.println("Performing instruction for Rover " + roverNumber + ", Receiving position: " + rovers.get(roverNumber).getPosition());
-//        }
-//
-//    }
-
 }
 
 

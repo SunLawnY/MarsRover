@@ -16,7 +16,6 @@ Example:
 2. Deploy Rovers: Specify the number of rovers and initialize each with its starting coordinates and facing direction (N, E, S, W).
       How many Rover to deploy
       2
-      
       Initialize Rover 1 Using Inputted XY Coordinates
       1 2 N
       Coordinates acquired, situated at 1 2 facing N
